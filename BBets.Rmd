@@ -94,8 +94,38 @@ The classSize that makes this a fair bets is `r classSize`
   
 <!--Explain and display your method of coming up with a 95% confidence interval of  professor Brownlows winnings (or losings)-->
 
+```{r}
+bdays=1:365
+savebank=vector("numeric")
+payout=2
+classSize=35
+for(j in 1:100){
+bank=0
+for(i in 1:637){
+  classbd=sample(bdays,size=classSize,replace=TRUE)
+  N=length(unique(classbd))
+  if(N==classSize)
+    bank=bank-payout
+  else
+    bank=bank+1
+}
+savebank[j]=bank
+}
+```
+
+
+```{r}
+hist(savebank)
+f=favstats(savebank)
+lcl=f$mean-2*f$sd 
+ucl=f$mean+2*f$sd 
+print(paste("confidence interval",lcl,ucl))
+```
+The median profit is  `r f$median`
+
 
 # Discussion and Conclusion
 
 <!--Discussion and conclusion here.  If professor Brownlow is consistantly making or losing money how could he change his payout so that his profits center on zero?  Also discuss what size his class should be in order to have his current scheme balance at zero profit.!-->
 
+We have answered all three questions using replacment. 
