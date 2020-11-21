@@ -11,7 +11,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 require(tidyverse)
-require(tidyverse)
+require(tigerstats)
 require(knitr)
 ```
 
@@ -34,6 +34,30 @@ There are 3 questions and there should be at least 3 separate commits, at least 
 
 
 <!--Decide on your methods:  In this section explain the approach you will take to attack the issue --- how will you decide on a likely estimate of professor Brownlow's earnings or losses after 637 bets. Also explain how you construct a 95% confidence interval about your estimate of his winnings !-->
+
+```{r}
+bdays=1:365
+savebank=vector("numeric")
+payout=4.50
+for(j in 1:100){
+bank=0
+for(i in 1:637){
+  classbd=sample(bdays,size=35,replace=TRUE)
+  N=length(unique(classbd))
+  if(N==35)
+    bank=bank-payout
+  else
+    bank=bank+1
+}
+savebank[j]=bank
+}
+```
+
+
+```{r}
+hist(savebank)
+f=favstats(savebank)
+```
 
 
 # What size of class makes the 2:1 bet fair?  
