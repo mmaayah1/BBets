@@ -58,10 +58,36 @@ savebank[j]=bank
 hist(savebank)
 f=favstats(savebank)
 ```
-
+The payout that makes this a fair bets is `r payout`
 
 # What size of class makes the 2:1 bet fair?  
 <!--Explain and display the results of your method of coming up with the estimate of professor Brownlows betting profits!-->
+
+```{r}
+bdays=1:365
+savebank=vector("numeric")
+payout=2
+classSize=28
+for(j in 1:100){
+bank=0
+for(i in 1:637){
+  classbd=sample(bdays,size=classSize,replace=TRUE)
+  N=length(unique(classbd))
+  if(N==classSize)
+    bank=bank-payout
+  else
+    bank=bank+1
+}
+savebank[j]=bank
+}
+```
+
+
+```{r}
+hist(savebank)
+f=favstats(savebank)
+```
+The classSize that makes this a fair bets is `r classSize`
 
 
 # In the class and payoff as described what is a 95% confidence interval for Brownlow's earnings?
